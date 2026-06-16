@@ -7,11 +7,19 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name           = "default"
     node_count     = 1
-    vm_size        = "Standard_D2s_v3"
+    vm_size = "Standard_ec2as_v5"
     vnet_subnet_id = var.subnet_id
   }
 
   identity {
     type = "SystemAssigned"
   }
+
+network_profile {
+  network_plugin = "kubenet"
+
+  service_cidr = "10.244.0.0/16"
+  dns_service_ip = "10.244.0.10"
+  pod_cidr = "10.243.0.0/16"
+}
 }
