@@ -1,0 +1,29 @@
+{
+    "name": "DevOps Toolbox Engine",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "hashicorp.terraform",
+                "ms-kubernetes-tools.vscode-kubernetes-tools",
+                "ms-azuretools.vscode-docker",
+                "eamodio.gitlens",
+                "redhat.vscode-yaml",
+                "humao.rest-client",
+                "ms-vscode.makefile-tools",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    },
+    "mounts": [
+        // 1. Przekazanie socketu Dockera
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+        
+        // 2. Pancerny, bezpośredni montaż certyfikatów z Twojego profilu Windowsa do Linuxa
+        "source=c:/Users/mateu/.kube,target=/home/ML/.kube,type=bind"
+    ],
+    // Twój użytkownik zdefiniowany w Dockerfile
+    "remoteUser": "ML"
+}
