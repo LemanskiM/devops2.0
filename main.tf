@@ -40,6 +40,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   location            = azurerm_resource_group.rg_szkolenie.location
   resource_group_name = azurerm_resource_group.rg_szkolenie.name
   dns_prefix          = "mateusz-k8s-dns"
+  oidc_issuer_enabled = true
 
   default_node_pool {
     name           = "default"
@@ -54,10 +55,10 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
   # FIX: Network profile MUST be inside the cluster block
   network_profile {
-    network_plugin     = "kubenet"
-    service_cidr       = "10.244.0.0/16" # Internal K8s services range
-    dns_service_ip     = "10.244.0.10"   # K8s CoreDNS IP
-    pod_cidr           = "10.243.0.0/16" # Pods IP range
+    network_plugin = "kubenet"
+    service_cidr   = "10.244.0.0/16" # Internal K8s services range
+    dns_service_ip = "10.244.0.10"   # K8s CoreDNS IP
+    pod_cidr       = "10.243.0.0/16" # Pods IP range
   }
 
   tags = {
@@ -66,4 +67,32 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   }
 }
 
+# 6. Helm Provider Configuration
+# Configure Kubernetes provider using AKS kube_config
+# Helm provider will use the cluster via the Kubernetes provider
 
+provider "kubernetes" {
+  host                   = azurerm_kubernetes_cluster.aks_cluster.kube_config.0.host
+  client_certificate     = base64decode(azurerm_kubernetes_cluster.aks_cluster.kube_config.0.client_certificate)
+  client_key             = base64decode(azurerm_kubernetes_cluster.aks_cluster.kube_config.0.client_key)
+  cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks_cluster.kube_config.0.cluster_ca_certificate)
+}
+
+provider "helm" {}
+
+resource "helm_release" "nginx_ingress" {
+  name             = "ingress-nginx"
+  repository       = "https://kubernetes.github.io/ingress-nginx"
+  chart            = "ingress-nginx"
+  namespace        = "ingress-basic"
+  create_namespace = true
+
+  depends_on = [
+    azurerm_kubernetes_cluster.aks_cluster
+  ]
+  values = [<<-YAML
+controller:
+  replicaCount: 1
+YAML
+  ]
+}
