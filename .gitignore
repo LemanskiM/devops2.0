@@ -35,6 +35,7 @@ docker-compose.override.yml
 .terraform.lock.hcl
 crash.log
 crash.*.log
+terraform.exe
 
 # plan files
 *.tfplan
