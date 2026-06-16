@@ -1,0 +1,87 @@
+
+# =========================
+# OS / system files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# VS Code / Dev Containers
+# =========================
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+.devcontainer/.DS_Store
+
+# =========================
+# Docker
+# =========================
+*.log
+docker-compose.override.yml
+
+# local volumes / state
+*.pid
+*.sock
+
+# =========================
+# Terraform
+# =========================
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+crash.log
+crash.*.log
+
+# plan files
+*.tfplan
+
+# =========================
+# Kubernetes
+# =========================
+*.kubeconfig
+.kube/
+
+# =========================
+# Node / JS tools (if used later)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+# Python (if used later)
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+
+# =========================
+# Secrets (IMPORTANT)
+# =========================
+.env
+.env.*
+*.pem
+*.key
+*.crt
+id_rsa
+id_ed25519
+
+# =========================
+# Logs / temp
+# =========================
+*.log
+tmp/
+temp/
+
+# =========================
+# IDE / JetBrains (optional)
+# =========================
+.idea/
+*.iml
