@@ -4,7 +4,6 @@ metadata:
   name: nginx
 spec:
   type: LoadBalancer
-  loadBalancerIP: 20.123.96.179
   selector:
     app: nginx
   ports:

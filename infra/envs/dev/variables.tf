@@ -1,2 +1,7 @@
-variable "location" {}
-variable "rg_name" {}
+variable "rg_name" {
+  default = "rg-devops-mateusz-dev"
+}
+
+variable "location" {
+  default = "northeurope"
+}

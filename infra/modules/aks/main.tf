@@ -3,6 +3,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
   location            = var.location
   resource_group_name = var.rg_name
   dns_prefix          = "aks-dns"
+    lifecycle {
+    ignore_changes = [
+      oidc_issuer_enabled
+    ]
+  }
+
+
 
   default_node_pool {
     name           = "default"

@@ -13,7 +13,8 @@
                 "redhat.vscode-yaml",
                 "humao.rest-client",
                 "ms-vscode.makefile-tools",
-                "esbenp.prettier-vscode"
+                "esbenp.prettier-vscode",
+                "github.copilot"
             ]
         }
     },
@@ -24,6 +25,10 @@
         // 2. Pancerny, bezpośredni montaż certyfikatów z Twojego profilu Windowsa do Linuxa
         "source=c:/Users/mateu/.kube,target=/home/ML/.kube,type=bind"
     ],
+    
+    // Pobranie czystego aliasu bezpośrednio przez curl (brak problemów z cudzysłowami w JSON)
+    "postCreateCommand": "cat << 'EOF' >> /home/ML/.bashrc\nalias clip=\"base64 | tr -d '\\n' | awk '{print \\\"\\033]52;c;\\\" \\$0 \\\"\\007\\\"}'\"\nEOF",
+
     // Twój użytkownik zdefiniowany w Dockerfile
     "remoteUser": "ML"
 }
