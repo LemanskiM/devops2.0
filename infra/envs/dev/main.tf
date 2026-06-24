@@ -47,3 +47,12 @@ module "argocd" {
 
   depends_on = [module.aks]
 }
+
+module "monitoring" {
+  source = "../../modules/monitoring"
+}
+
+module "ingress" {
+  source     = "../../modules/ingress"
+  depends_on = [module.aks]
+}

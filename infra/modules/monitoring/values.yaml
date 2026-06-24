@@ -1,0 +1,30 @@
+grafana:
+  service:
+    type: ClusterIP
+
+  persistence:
+    enabled: true
+    size: 5Gi
+
+prometheus:
+  prometheusSpec:
+    retention: 7d
+    scrapeInterval: 15s
+
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+
+prometheusOperator:
+  tls:
+    enabled: false
+
+  admissionWebhooks:
+    enabled: false
+    deployment:
+      enabled: false
+    

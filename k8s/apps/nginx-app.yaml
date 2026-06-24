@@ -5,11 +5,10 @@ metadata:
   namespace: argocd
 spec:
   project: default
-
-source:
-  repoURL: https://github.com/LemanskiM/DevOps-toolbox.git
-  targetRevision: main
-  path: k8s/workloads/nginx
+  source:
+    repoURL: https://github.com/LemanskiM/devops2.0.git
+    targetRevision: master
+    path: k8s/workloads/nginx
 
   destination:
     server: https://kubernetes.default.svc
@@ -19,3 +18,5 @@ source:
     automated:
       prune: true
       selfHeal: true
+
+  

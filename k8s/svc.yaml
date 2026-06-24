@@ -3,8 +3,7 @@ kind: Service
 metadata:
   name: nginx
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 20.123.96.179
+  type: ClusterIP
   selector:
     app: nginx
   ports:
